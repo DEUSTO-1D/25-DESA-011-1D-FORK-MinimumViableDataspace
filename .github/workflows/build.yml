@@ -44,3 +44,12 @@ jobs:
             docker tag $image ghcr.io/deusto-1d/nasertic-$image
             docker push ghcr.io/deusto-1d/nasertic-$image
           done
+      - name: Tag and push Vault image to ghcr.io
+        env:
+          VAULT_VERSION: "1.21"
+        run: |
+            docker build \
+              -f Dockerfile-custom-vault \
+              --build-arg VAULT_VERSION=$VAULT_VERSION \
+              -t ghcr.io/deusto-1d/nasertic-vault:$VAULT_VERSION .
+            docker push ghcr.io/deusto-1d/nasertic-vault:$VAULT_VERSION
